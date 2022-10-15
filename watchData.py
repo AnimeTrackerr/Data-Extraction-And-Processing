@@ -5,7 +5,7 @@ import os
 
 
 try:
-    days = int(os.environ['days'])
+    days = os.environ['days']
 except KeyError as e:
     sys.exit("key error")
 
