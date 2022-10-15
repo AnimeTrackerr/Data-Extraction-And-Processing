@@ -1,8 +1,6 @@
 name: watch updates
 
-on:
-  schedule:
-    - cron: "* * * * *"
+on: workflow_dispatch
 
 jobs:
   build:
@@ -22,4 +20,6 @@ jobs:
           pip install -r requirements.txt
 
       - name: execute python script
+        env:
+          days: 7
         run: python watchData.py
