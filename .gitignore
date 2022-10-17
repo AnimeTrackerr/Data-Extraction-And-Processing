@@ -7,3 +7,5 @@ ParamsAndHeaders
 RawData
 
 .env
+
+**/__pycache__

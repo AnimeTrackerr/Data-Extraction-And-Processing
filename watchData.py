@@ -7,7 +7,7 @@ import os
 try:
     days = int(os.environ['days'])
 except KeyError as e:
-    sys.exit("key error")
+    sys.exit("key error: 'days' env not set")
 
 last_watch = (datetime.datetime.now() -
               datetime.timedelta(days=days)).strftime("%Y-%m-%dT%H:%M:%SZ")

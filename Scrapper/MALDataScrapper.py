@@ -17,7 +17,7 @@ class MALDataScrapper:
         return token[:64]
 
     def authorize(self, generate_code_verifier=True):
-        # generate new
+        # generate new code verifier
         if generate_code_verifier:
             os.environ['code'] = self.get_new_code_verifier()
 
@@ -90,7 +90,7 @@ class MALDataScrapper:
         tokens['access_token'] = res["access_token"]
         tokens['refresh_token'] = res["refresh_token"]
         tokens['expires_in'] = req.get(
-            "https://worldtimeapi.org/api/timezone/Asia/Kolkata/").json()["unixtime"] + res["expires_in"]
+            f"https://worldtimeapi.org/api/timezone/{os.getenv('T_ZONE')}").json()["unixtime"] + res["expires_in"]
 
         # save the tokens
         with open('ParamsAndHeaders/tokens.json', 'w') as tokens_file:
