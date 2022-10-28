@@ -49,13 +49,12 @@ class MALDataScrapper:
 
         return code
 
-    def get_access_token(self, type='generate', save_and_get_locally=True,**kwargs):
+    def get_access_token(self, type='generate', save_and_get_locally=True, **kwargs):
         # define or get body values
         data = {}
 
         if not os.getenv('CLIENT_ID') or not os.getenv('CLIENT_SECRET'):
-            print('CLIENT_ID or CLIENT_SECRET not set')
-            return
+            sys.exit('CLIENT_ID or CLIENT_SECRET not set')
 
         data['client_id'] = os.getenv('CLIENT_ID')
         data['client_secret'] = os.getenv('CLIENT_SECRET')
@@ -86,7 +85,7 @@ class MALDataScrapper:
                 with open('ParamsAndHeaders/tokens.json', 'r') as tokens_file:
                     data['refresh_token'] = json.load(
                         tokens_file)['refresh_token']
-            
+
             else:
                 data['code'] = kwargs['code']
                 data['code_verifier'] = kwargs['code_verifier']

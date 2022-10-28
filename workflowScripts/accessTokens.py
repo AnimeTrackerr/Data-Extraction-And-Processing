@@ -37,11 +37,14 @@ if __name__ == "__main__":
     # GET NEW TOKENS
     gettokenObj = MALDataScrapper(url=None)
 
-    data = {
-        "code": os.getenv("code"),
-        "code_verifier": os.getenv("code_verifier"),
-        "refresh_token": os.getenv("refresh_token")
-    }
+    try:
+        data = {
+            "code": os.environ["code"],
+            "code_verifier": os.environ["code_verifier"],
+            "refresh_token": os.environ["refresh_token"]
+        }
+    except KeyError as ke:
+        sys.exit(f'key not found: {ke}')
 
     tokens = gettokenObj.get_access_token(
         type='refresh', save_and_get_locally=False, **data)
