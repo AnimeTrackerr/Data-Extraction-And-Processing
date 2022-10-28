@@ -24,4 +24,6 @@ jobs:
       - name: execute python script
         env:
           days: 7
-        run: python watchData.py
+        run: |
+          cd workflowScripts
+          python watchData.py

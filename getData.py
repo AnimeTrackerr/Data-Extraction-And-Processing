@@ -37,16 +37,16 @@ if __name__ == "__main__":
     # METHOD 1 for getting access tokens - store locally
 
     # if tokens doesnt exist or tokens expired
-    if "expires_in" not in tokens.keys() or tokens['expires_in'] - req.get(f"https://worldtimeapi.org/api/timezone/{time_zone}").json()["unixtime"] <= 2:
+    if "expires_at" not in tokens.keys() or tokens['expires_at'] - req.get(f"https://worldtimeapi.org/api/timezone/{time_zone}").json()["unixtime"] <= 2:
         tokens = mal_scrapper.get_access_token(type='generate')
         print(f'generated tokens:\n\n {tokens}')
 
     # else refresh tokens (if necessary) for MAL auth
-    elif tokens['expires_in'] - req.get(f"https://worldtimeapi.org/api/timezone/{time_zone}").json()["unixtime"] <= check_expiry_before:
+    elif tokens['expires_at'] - req.get(f"https://worldtimeapi.org/api/timezone/{time_zone}").json()["unixtime"] <= check_expiry_before:
         tokens = mal_scrapper.get_access_token(type='refresh')
         print(f'new tokens:\n\n {tokens}')
 
-    # METHOD 2 for getting access tokens - store locally
+    # METHOD 2 for getting access tokens - from github
 
     # create new log file
     number = createDirsObj.getIncrementedFileName(dir_name='LogFiles',

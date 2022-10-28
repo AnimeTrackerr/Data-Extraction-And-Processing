@@ -1,6 +1,7 @@
 import secrets
 import json
 import os
+import sys
 import requests as req
 from requests import HTTPError
 from tqdm import tqdm
@@ -48,9 +49,13 @@ class MALDataScrapper:
 
         return code
 
-    def get_access_token(self, type='generate'):
+    def get_access_token(self, type='generate', save_and_get_locally=True,**kwargs):
         # define or get body values
         data = {}
+
+        if not os.getenv('CLIENT_ID') or not os.getenv('CLIENT_SECRET'):
+            print('CLIENT_ID or CLIENT_SECRET not set')
+            return
 
         data['client_id'] = os.getenv('CLIENT_ID')
         data['client_secret'] = os.getenv('CLIENT_SECRET')
@@ -63,21 +68,29 @@ class MALDataScrapper:
             data['code'] = code
             data['code_verifier'] = os.getenv('code')
 
-            with open('ParamsAndHeaders/code.json', 'w') as code_file:
-                json.dump({'code': data['code']}, code_file)
+            if save_and_get_locally:
+                with open('ParamsAndHeaders/code.json', 'w') as code_file:
+                    json.dump({'code': data['code']}, code_file)
 
         else:
             data['grant_type'] = 'refresh_token'
 
-            with open('ParamsAndHeaders/code.json', 'r') as code_file:
-                data['code'] = json.load(code_file)['code']
+            if save_and_get_locally:
+                with open('ParamsAndHeaders/code.json', 'r') as code_file:
+                    data['code'] = json.load(code_file)['code']
 
-            with open('ParamsAndHeaders/code_verifier.json', 'r') as code_verifier_file:
-                data['code_verifier'] = json.load(code_verifier_file)[
-                    'code_verifier']
+                with open('ParamsAndHeaders/code_verifier.json', 'r') as code_verifier_file:
+                    data['code_verifier'] = json.load(code_verifier_file)[
+                        'code_verifier']
 
-            with open('ParamsAndHeaders/tokens.json', 'r') as tokens_file:
-                data['refresh_token'] = json.load(tokens_file)['refresh_token']
+                with open('ParamsAndHeaders/tokens.json', 'r') as tokens_file:
+                    data['refresh_token'] = json.load(
+                        tokens_file)['refresh_token']
+            
+            else:
+                data['code'] = kwargs['code']
+                data['code_verifier'] = kwargs['code_verifier']
+                data['refresh_token'] = kwargs['refresh_token']
 
         # make a request
         try:
@@ -89,12 +102,13 @@ class MALDataScrapper:
         tokens = {}
         tokens['access_token'] = res["access_token"]
         tokens['refresh_token'] = res["refresh_token"]
-        tokens['expires_in'] = req.get(
-            f"https://worldtimeapi.org/api/timezone/{os.getenv('T_ZONE')}").json()["unixtime"] + res["expires_in"]
+        tokens['expires_at'] = req.get(
+            f"https://worldtimeapi.org/api/timezone/{os.getenv('T_ZONE')}").json()["unixtime"] + res["expires_at"]
 
         # save the tokens
-        with open('ParamsAndHeaders/tokens.json', 'w') as tokens_file:
-            json.dump(tokens, tokens_file)
+        if save_and_get_locally:
+            with open('ParamsAndHeaders/tokens.json', 'w') as tokens_file:
+                json.dump(tokens, tokens_file)
 
         # return tokens
         return tokens
