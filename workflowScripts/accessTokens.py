@@ -31,8 +31,11 @@ def set_secrets(list_of_secrets: dict, key_info: dict, headers: dict, **mapper) 
 
         data["encrypted_value"] = encrypt(key_info['key'], value)
 
-        req.put(headers=headers, data=data,
-                url=f"https://api.github.com/orgs/AnimeTrackerr/actions/secrets/{mapper[key]}")
+        res = req.put(headers=headers, data=data,
+                      url=f"https://api.github.com/orgs/AnimeTrackerr/actions/secrets/{mapper[key]}")
+
+        if res.status_code != 204:
+            print(f"Error setting key: {mapper[key]}")
 
 
 if __name__ == "__main__":
