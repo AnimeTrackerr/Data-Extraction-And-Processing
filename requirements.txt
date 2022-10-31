@@ -2,3 +2,4 @@ pymongo==4.2.0
 requests
 certifi
 python-dotenv
+PyNaCl
