@@ -1,7 +1,7 @@
 import os
 
 # test imports
-# from Scrapper.MALDataScrapper import MALDataScrapper
+from Scrapper.MALDataScrapper import MALDataScrapper
 
 
 # test env variables
