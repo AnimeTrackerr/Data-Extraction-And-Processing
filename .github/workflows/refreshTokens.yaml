@@ -25,7 +25,7 @@ jobs:
           CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
           code: ${{secrets.CODE}}
           code_verifier: ${{secrets.CODE_VERIFIER}}
-          refresh_token: ${{secrets.REFRESH_TOKEN}}
+          refresh_token: ${{secrets.MAL_REFRESH_TOKEN}}
           PAT: ${{secrets.PAT}}
         run: |
           python workflowScripts/testImports.py
