@@ -4,7 +4,7 @@ import requests as req
 from base64 import b64encode
 from nacl import encoding, public
 
-if sys.path.insert(0, os.path.abspath('..')):
+if not sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..')):
     from Scrapper import MALDataScrapper
 
 
