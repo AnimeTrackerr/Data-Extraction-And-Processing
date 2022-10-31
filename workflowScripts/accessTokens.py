@@ -10,7 +10,9 @@ def encrypt(public_key: str, secret_value: str) -> str:
 
     public_key = public.PublicKey(
         public_key.encode("utf-8"), encoding.Base64Encoder())
+
     sealed_box = public.SealedBox(public_key)
+
     encrypted = sealed_box.encrypt(secret_value.encode("utf-8"))
 
     return b64encode(encrypted).decode("utf-8")
@@ -69,8 +71,8 @@ if __name__ == "__main__":
     # encrypt and set the updated secrets
     secret_mapper = {
         'expires_in': 'EXPIRES_AT',
-        'access_token': 'ACCESS_TOKEN',
-        'refresh_token': 'REFRESH_TOKEN'
+        'access_token': 'MAL_ACCESS_TOKEN',
+        'refresh_token': 'MAL_REFRESH_TOKEN'
     }
 
     if "key_id" in key_info.keys():
