@@ -1,1 +1,1 @@
-all = ["dataScrapper", "MALDataScrapper"]
+all = ["DataScrapper", "MALDataScrapper"]

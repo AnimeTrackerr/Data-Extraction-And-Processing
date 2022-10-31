@@ -1,9 +1,11 @@
-from Scrapper.MALDataScrapper import MALDataScrapper
 import os
 import sys
 import requests as req
 from base64 import b64encode
 from nacl import encoding, public
+
+if sys.path.insert(0, os.path.abspath('..')):
+    from Scrapper import MALDataScrapper
 
 
 def encrypt(public_key: str, secret_value: str) -> str:
