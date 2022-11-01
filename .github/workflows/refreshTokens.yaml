@@ -13,8 +13,18 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.9"
-
+      
+      - name: Cache pip modules
+        id: cached-items
+        uses: actions/cache@v3
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
+          
       - name: Install packages using pip
+        if: steps.cached-items.outputs.cache-hit != 'true'
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
