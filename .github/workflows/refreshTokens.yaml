@@ -18,10 +18,8 @@ jobs:
         id: cached-items
         uses: actions/cache@v3
         with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-          restore-keys: |
-            ${{ runner.os }}-pip-
+          path: ${{ env.pythonLocation }}
+          key: ${{ env.pythonLocation }}-${{ hashFiles('requirements.txt') }}
           
       - name: Install packages using pip
         if: steps.cached-items.outputs.cache-hit != 'true'
