@@ -1,6 +1,8 @@
 name: Refresh Tokens
 
-on: workflow_dispatch
+on:
+  schedule:
+    - cron: '0 0 8 * *'
 
 jobs:
   build:
@@ -38,13 +40,13 @@ jobs:
         run: |
           python workflowScripts/testImports.py
 
-      # - name: Run script to refresh tokens
-      #   env:
-      #     CLIENT_ID: ${{secrets.CLIENT_ID}}
-      #     CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
-      #     code: ${{secrets.CODE}}
-      #     code_verifier: ${{secrets.CODE_VERIFIER}}
-      #     refresh_token: ${{secrets.REFRESH_TOKEN}}
-      #     PAT: ${{secrets.PAT}}
-      #   run: |
-      #     python workflowScripts/accessTokens.py
+      - name: Run script to refresh tokens
+        env:
+          CLIENT_ID: ${{secrets.CLIENT_ID}}
+          CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
+          code: ${{secrets.CODE}}
+          code_verifier: ${{secrets.CODE_VERIFIER}}
+          refresh_token: ${{secrets.REFRESH_TOKEN}}
+          PAT: ${{secrets.PAT}}
+        run: |
+          python workflowScripts/accessTokens.py
