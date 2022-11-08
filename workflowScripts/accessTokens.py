@@ -58,12 +58,6 @@ if __name__ == "__main__":
 
     # SET NEW TOKENS IN SECRETS
 
-    # check if PAT is set
-    try:
-        print(type(os.environ['PAT']))
-    except KeyError as ke:
-        sys.exit(f'key not set: {ke}')
-
     # get the public key of the org
     headers = {
         "Accept": "application/vnd.github+json",
