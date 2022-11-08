@@ -14,6 +14,7 @@ jobs:
       refresh_token: ${{secrets.MAL_REFRESH_TOKEN}}
       PAT: ${{secrets.PAT}}
       T_ZONE: ${{secrets.T_ZONE}}
+      REPO_ID: ${{secrets.REPO_ID}}
       
     steps:
       - name: Checkout contents
