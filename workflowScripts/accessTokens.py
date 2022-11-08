@@ -24,7 +24,7 @@ def set_secrets(list_of_secrets: dict, key_info: dict, headers: dict, **mapper) 
     data = {
         "key_id": key_info['key_id'],
         "visibility": "selected",
-        "selected_repository_ids": [551801562]
+        "selected_repository_ids": [os.environ["REPO_ID"]]
     }
 
     for key, value in list_of_secrets:
