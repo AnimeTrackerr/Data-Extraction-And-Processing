@@ -5,7 +5,7 @@ from base64 import b64encode
 from nacl import encoding, public
 
 if not sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..')):
-    from Scrapper import MALDataScrapper.MALDataScrapper
+    from Scrapper import MALDataScrapper
 
 
 def encrypt(public_key: str, secret_value: str) -> str:
@@ -42,7 +42,7 @@ def set_secrets(list_of_secrets: dict, key_info: dict, headers: dict, **mapper) 
 
 if __name__ == "__main__":
     # GET NEW TOKENS
-    gettokenObj = MALDataScrapper(url=None)
+    gettokenObj = MALDataScrapper.MALDataScrapper(url=None)
 
     try:
         data = {
