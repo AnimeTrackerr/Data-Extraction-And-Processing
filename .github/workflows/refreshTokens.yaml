@@ -40,6 +40,6 @@ jobs:
         run: |
           python workflowScripts/testImports.py
 
-#       - name: Run script to refresh tokens
-#         run: |
-#           python workflowScripts/accessTokens.py
+      - name: Run script to refresh tokens
+        run: |
+          python workflowScripts/accessTokens.py
