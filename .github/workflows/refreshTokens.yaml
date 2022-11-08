@@ -7,6 +7,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    env:
+      CLIENT_ID: ${{secrets.CLIENT_ID}}
+      CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
+      code: ${{secrets.CODE}}
+      code_verifier: ${{secrets.CODE_VERIFIER}}
+      refresh_token: ${{secrets.MAL_REFRESH_TOKEN}}
+      PAT: ${{secrets.PAT}}
+      
     steps:
       - name: Checkout contents
         uses: actions/checkout@v3
@@ -30,23 +39,9 @@ jobs:
           pip install -r requirements.txt
 
       - name: Test Imports and Env Variables
-        env:
-          CLIENT_ID: ${{secrets.CLIENT_ID}}
-          CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
-          code: ${{secrets.CODE}}
-          code_verifier: ${{secrets.CODE_VERIFIER}}
-          refresh_token: ${{secrets.MAL_REFRESH_TOKEN}}
-          PAT: ${{secrets.PAT}}
         run: |
           python workflowScripts/testImports.py
 
       - name: Run script to refresh tokens
-        env:
-          CLIENT_ID: ${{secrets.CLIENT_ID}}
-          CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
-          code: ${{secrets.CODE}}
-          code_verifier: ${{secrets.CODE_VERIFIER}}
-          refresh_token: ${{secrets.REFRESH_TOKEN}}
-          PAT: ${{secrets.PAT}}
         run: |
           python workflowScripts/accessTokens.py
