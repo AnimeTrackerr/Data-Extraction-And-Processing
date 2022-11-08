@@ -24,13 +24,10 @@ def set_secrets(list_of_secrets: dict, key_info: dict, headers: dict, **mapper) 
     data = {
         "key_id": key_info['key_id'],
         "visibility": "selected",
+        "selected_repository_ids": [551801562]
     }
 
     for key, value in list_of_secrets:
-        if key == 'expires_in':
-            value = str(value + req.get(
-                f"https://worldtimeapi.org/api/timezone/{os.getenv('T_ZONE')}").json()["unixtime"])
-
         data["encrypted_value"] = encrypt(key_info['key'], value)
 
         res = req.put(headers=headers, data=data,
@@ -69,7 +66,7 @@ if __name__ == "__main__":
 
     # encrypt and set the updated secrets
     secret_mapper = {
-        'expires_in': 'EXPIRES_AT',
+        'expires_at': 'EXPIRES_AT',
         'access_token': 'MAL_ACCESS_TOKEN',
         'refresh_token': 'MAL_REFRESH_TOKEN'
     }
