@@ -5,7 +5,7 @@ from base64 import b64encode
 from nacl import encoding, public
 
 if not sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..')):
-    from Scrapper import MALDataScrapper
+    from Scrapper import MALDataScrapper.MALDataScrapper
 
 
 def encrypt(public_key: str, secret_value: str) -> str:
