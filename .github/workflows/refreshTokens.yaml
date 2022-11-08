@@ -13,6 +13,7 @@ jobs:
       code_verifier: ${{secrets.CODE_VERIFIER}}
       refresh_token: ${{secrets.MAL_REFRESH_TOKEN}}
       PAT: ${{secrets.PAT}}
+      T_ZONE: ${{secrets.T_ZONE}}
       
     steps:
       - name: Checkout contents
