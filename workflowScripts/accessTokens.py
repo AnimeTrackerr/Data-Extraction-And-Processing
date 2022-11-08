@@ -42,7 +42,7 @@ def set_secrets(list_of_secrets: dict, key_info: dict, headers: dict, **mapper) 
 
 if __name__ == "__main__":
     # GET NEW TOKENS
-    gettokenObj = MALDataScrapper.MALDataScrapper(url=None)
+    gettokenObj = MALDataScrapper.MALDataScrapper(baseurl=None)
 
     try:
         data = {
