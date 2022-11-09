@@ -9,7 +9,7 @@ print(MALDataScrapper)
 
 # # test env variables
 vars = ['CLIENT_ID', 'CLIENT_SECRET', 'code',
-        'code_verifier', 'refresh_token', 'PAT']
+        'code_verifier', 'refresh_token', 'PAT', 'T_ZONE', 'REPO_ID']
 
 for var in vars:
     print(f'{var}: {os.environ[var]}')
