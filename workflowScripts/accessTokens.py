@@ -28,7 +28,7 @@ def set_secrets(list_of_secrets: dict, key_info: dict, headers: dict, **mapper) 
             "encrypted_value": encrypt(key_info['key'], str(value)),
             "key_id": key_info['key_id'],
             "visibility": "selected",
-            "selected_repository_ids": [os.environ["REPO_ID"]]
+            "selected_repository_ids": [int(os.environ["REPO_ID"])]
         }
 
         res = req.put(headers=headers, json=data,
