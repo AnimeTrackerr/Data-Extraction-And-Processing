@@ -21,19 +21,22 @@ def encrypt(public_key: str, secret_value: str) -> str:
 
 
 def set_secrets(list_of_secrets: dict, key_info: dict, headers: dict, **mapper) -> None:
-    data = {
-        "key_id": key_info['key_id'],
-        "visibility": "selected",
-        "selected_repository_ids": [os.environ["REPO_ID"]]
-    }
 
     for key, value in list_of_secrets.items():
-        data["encrypted_value"] = encrypt(key_info['key'], str(value))
+
+        data = {
+            "encrypted_value": encrypt(key_info['key'], str(value)),
+            "key_id": key_info['key_id'],
+            "visibility": "selected",
+            "selected_repository_ids": [os.environ["REPO_ID"]]
+        }
 
         res = req.put(headers=headers, json=data,
                       url=f"https://api.github.com/orgs/AnimeTrackerr/actions/secrets/{mapper[key]}")
 
-        if res.status_code != 204:
+        if res.status_code == 204:
+            print(f"Key {mapper[key]} succesfully set")
+        else:
             print(f"Error setting key: {mapper[key]}")
 
 
