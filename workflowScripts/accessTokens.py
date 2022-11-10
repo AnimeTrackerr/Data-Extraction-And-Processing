@@ -28,7 +28,7 @@ def set_secrets(list_of_secrets: dict, key_info: dict, headers: dict, **mapper) 
     }
 
     for key, value in list_of_secrets:
-        data["encrypted_value"] = encrypt(key_info['key'], value)
+        data["encrypted_value"] = encrypt(key_info['key'], str(value))
 
         res = req.put(headers=headers, data=data,
                       url=f"https://api.github.com/orgs/AnimeTrackerr/actions/secrets/{mapper[key]}")
@@ -37,9 +37,24 @@ def set_secrets(list_of_secrets: dict, key_info: dict, headers: dict, **mapper) 
             print(f"Error setting key: {mapper[key]}")
 
 
+def test_tokens(token):
+    headers = {
+        'Authorization': f'Bearer {token}'
+    }
+
+    res = req.get(headers=headers,
+                  url="https://api.myanimelist.net/v2/anime?q=one&limit=4")
+
+    if res.status_code == 200:
+        print(res.json())
+    else:
+        print("error getting anime")
+
+
 if __name__ == "__main__":
     # GET NEW TOKENS
-    gettokenObj = MALDataScrapper.MALDataScrapper(baseurl="https://myanimelist.net/v1")
+    gettokenObj = MALDataScrapper.MALDataScrapper(
+        baseurl="https://myanimelist.net/v1")
 
     try:
         data = {
@@ -52,6 +67,8 @@ if __name__ == "__main__":
 
     tokens = gettokenObj.get_access_token(
         type='refresh', save_and_get_locally=False, **data)
+
+    test_tokens(tokens['access_token'])
 
     # SET NEW TOKENS IN SECRETS
 
