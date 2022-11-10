@@ -27,7 +27,7 @@ def set_secrets(list_of_secrets: dict, key_info: dict, headers: dict, **mapper) 
         "selected_repository_ids": [os.environ["REPO_ID"]]
     }
 
-    for key, value in list_of_secrets:
+    for key, value in list_of_secrets.items():
         data["encrypted_value"] = encrypt(key_info['key'], str(value))
 
         res = req.put(headers=headers, data=data,
