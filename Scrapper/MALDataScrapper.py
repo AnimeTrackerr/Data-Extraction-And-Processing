@@ -102,7 +102,7 @@ class MALDataScrapper:
         tokens['access_token'] = res["access_token"]
         tokens['refresh_token'] = res["refresh_token"]
         tokens['expires_at'] = req.get(
-            f"https://worldtimeapi.org/api/timezone/{os.getenv('T_ZONE')}").json()["unixtime"] + res["expires_at"]
+            f"https://worldtimeapi.org/api/timezone/{os.getenv('T_ZONE')}").json()["unixtime"] + res["expires_in"]
 
         # save the tokens
         if save_and_get_locally:
