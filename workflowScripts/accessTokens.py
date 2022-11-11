@@ -71,7 +71,7 @@ if __name__ == "__main__":
     tokens = gettokenObj.get_access_token(
         type='refresh', save_and_get_locally=False, **data)
 
-    print(f"expires in: {tokens['expires_in']} \n")
+    print(f"expires in: {tokens['expires_at']} \n")
     test_tokens(tokens['access_token'])
 
     # SET NEW TOKENS IN SECRETS
