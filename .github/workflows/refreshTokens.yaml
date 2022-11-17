@@ -2,12 +2,12 @@ name: Refresh Tokens
 
 on:
   schedule:
-   - cron: '0 0 13 * *'
+    - cron: "0 0 13 * *"
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
+
     env:
       CLIENT_ID: ${{secrets.CLIENT_ID}}
       CLIENT_SECRET: ${{secrets.CLIENT_SECRET}}
@@ -17,7 +17,7 @@ jobs:
       PAT: ${{secrets.PAT}}
       T_ZONE: ${{secrets.T_ZONE}}
       REPO_ID: ${{secrets.REPO_ID}}
-      
+
     steps:
       - name: Checkout contents
         uses: actions/checkout@v3
@@ -26,14 +26,14 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.9"
-      
+
       - name: Cache pip modules
         id: cached-items
         uses: actions/cache@v3
         with:
           path: ${{ env.pythonLocation }}
           key: ${{ env.pythonLocation }}-${{ hashFiles('requirements.txt') }}
-          
+
       - name: Install packages using pip
         if: steps.cached-items.outputs.cache-hit != 'true'
         run: |
@@ -42,7 +42,7 @@ jobs:
 
       - name: Test Imports and Env Variables
         run: |
-          python workflowScripts/testImports.py
+          python tests/testImports.py
 
       - name: Run script to refresh tokens
         run: |
